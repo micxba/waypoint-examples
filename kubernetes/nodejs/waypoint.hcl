@@ -9,10 +9,10 @@ app "example-nodejs" {
   build {
     use "pack" {}
     registry {
-      use "docker" {
-        image = "example-nodejs"
-        tag   = "1"
-        local = true
+      use "aws-ecr" {
+        region     = "us-east-2"
+        repository = "waypoint-example"
+        tag        = "latest"
       }
     }
   }
@@ -25,9 +25,8 @@ app "example-nodejs" {
 
   release {
     use "kubernetes" {
-      // Sets up a load balancer to access released application
       load_balancer = true
-      port          = 3000
+      port          = 80
     }
   }
 }
